@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+	<dubbo:application name="integrate-consumer" owner="programmer"
+		organization="dubbox" />
+
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" />
+
+
+	<!--uncomment this if you want to test dubbo's monitor -->
+	<!--<dubbo:monitor protocol="registry"/> -->
+
+	<dubbo:reference id="AppUserService"
+		interface="com.yadda.integrate.api.IAppUserService" protocol="dubbo" />
+
+	<!-- import jdbc.properties -->
+	<!-- <context:property-placeholder location="classpath:/config/jdbc.properties" 
+		ignore-unresolvable="true" /> -->
+
+	<!-- 加载log4j配置 -->
+	<bean
+		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="targetClass" value="org.springframework.util.Log4jConfigurer" />
+		<property name="targetMethod" value="initLogging" />
+		<property name="arguments">
+			<list>
+				<value>classpath:config/log4j.xml</value>
+			</list>
+		</property>
+	</bean>
+
+
+
+	<!-- other ben 配置 ==========================================================begin====================== -->
+	<!-- spring系统启动以后，获取ApplicationContext容器，提供动态获取实例bean功能 -->
+	<bean class="com.yadda.integrate.consumer.util.Environ">
+	</bean>
+	<!-- other ben 配置 ==========================================================end======================== -->
+
+</beans> 
