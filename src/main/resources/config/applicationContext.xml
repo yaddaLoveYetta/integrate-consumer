@@ -16,10 +16,6 @@
 	<dubbo:reference id="AppUserService"
 		interface="com.yadda.integrate.api.IAppUserService" protocol="dubbo" />
 
-	<!-- import jdbc.properties -->
-	<!-- <context:property-placeholder location="classpath:/config/jdbc.properties" 
-		ignore-unresolvable="true" /> -->
-
 	<!-- 加载log4j配置 -->
 	<bean
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
